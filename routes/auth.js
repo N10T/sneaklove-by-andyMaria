@@ -82,7 +82,7 @@ router.post("/signin", (req, res, next) => {
         }
         if(bcrypt.compareSync(thePassword, dbRes.password)){
             req.session.currentUser = dbRes;
-            res.redirect("index");
+            res.redirect("/");
         } else {
             res.render("signin", {
                 errorMessage: "Incorrect password"
