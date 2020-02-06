@@ -1,31 +1,52 @@
 const express = require("express");
 const router = express.Router();
 const sneakerModel = require("./../models/Sneaker");
-
+const categoties = ["collection","men", "women", "kids"]
 router.get("/", (req, res) => {
   res.render("index");
 });
 
-router.get("/sneakers/:cat", (req, res) => {
-  res.send("bar");
-});
 
-router.post("/sneakers/:cat", (req, res) => {
-  console.log("post =============================================>", req.body)
-  if(req.body.category){  const sneakerCategory = req.body.category;
-  sneakerModel
-    .find({sneakerCategory})
-    .then(sneakers => {
-      res.render("list-sneakers", { sneakers });
+function renderByCategerory(category) {
+  if(category === "collection"){
+    router.get(`/sneakers/${category}`, (req, res, next) => {
+      sneakerModel
+        .find()
+        .then(sneakers => {
+          res.render("products", { sneakers });
+        })
+        .catch(dbErr => {
+          console.log("Oh no... database error");
+        })
     })
-    .catch(dbErr => {
-      console.log("Oh no... database error");
-    })} else {
-      console.log("is not equal to a category--------------------------------------------------------------")
-      res.send("check the console, you have a trouble with the category and req.body") //===============> to the same page ?
-    }
+  } else {  router.get(`/sneakers/${category}`, (req, res, next) => {
+    sneakerModel
+      .find({"category": `${category}`})
+      .then(sneakers => {
+        res.render("products", { sneakers });
+      })
+      .catch(dbErr => {
+        console.log("Oh no... database error");
+      })
+  });}
 
-});
+
+
+}
+
+categoties.forEach(category => renderByCategerory(category))
+
+router.get("/sneakers/men", (req, res, next) => {
+
+          sneakerModel
+            .find({category: "men"})
+            .then(sneakers => {
+              res.render("products", { sneakers });
+            })
+            .catch(dbErr => {
+              console.log("Oh no... database error");
+            })
+        });
 
 router.get("/one-product/:id", (req, res) => {
   res.send("baz");

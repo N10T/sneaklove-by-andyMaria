@@ -72,6 +72,8 @@ router.post("/signin", (req, res, next) => {
         return;
     }
 
+
+
     userModel.findOne({"email": theEmail})
     .then(dbRes => {
         if(!dbRes) {
