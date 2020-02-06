@@ -29,15 +29,11 @@ function renderByCategerory(category) {
         console.log("Oh no... database error");
       })
   });}
-
-
-
 }
 
 categoties.forEach(category => renderByCategerory(category))
 
 router.get("/sneakers/men", (req, res, next) => {
-
           sneakerModel
             .find({category: "men"})
             .then(sneakers => {
@@ -48,9 +44,17 @@ router.get("/sneakers/men", (req, res, next) => {
             })
         });
 
-router.get("/one-product/:id", (req, res) => {
-  res.send("baz");
+router.get("/one-product/:id", (req, res, next) => {
+  sneakerModel
+    .findById({_id: req.params.id})
+    .then(sneaker => {
+      res.render("one_product", { sneaker });
+    })
+    .catch(dbErr => {
+      console.log("Oh no... database error");
+    })
 });
+
 
 router.get("/signup", (req, res) => {
   res.render("signup");
