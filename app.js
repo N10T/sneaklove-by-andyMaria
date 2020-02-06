@@ -79,6 +79,9 @@ app.use("/", basePageRouter);
 const authRouter = require("./routes/auth");
 app.use("/", authRouter);
 
+const dashboardRouter = require("./routes/dashboard_sneaker");
+app.use("/", dashboardRouter);
+
 
 
 module.exports = app;
