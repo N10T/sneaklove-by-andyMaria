@@ -20,7 +20,7 @@ const path = require("path");
 app.set("view engine", "hbs");
 app.set("views",path.join(__dirname, "views"));
 app.use(express.static("public"));
-hbs.registerPartials(path.join(__dirname, "/views/partials"));
+hbs.registerPartials(path.join(__dirname, "views/partial"));
 app.use(express.urlencoded({extended: true})); // was false
 app.use(express.json());
 app.use(cookieParser());
@@ -76,10 +76,9 @@ app.use(eraseSessionMessage());
 const basePageRouter = require("./routes/index");
 app.use("/", basePageRouter);
 
-const listener = app.listen(process.env.PORT, () => {
-  console.log(
-    `app started at ${process.env.SITE_URL}:${process.env.PORT}`
-  );
-});
+const authRouter = require("./routes/auth");
+app.use("/", authRouter);
+
+
 
 module.exports = app;
