@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const sneakerModel = require("./../models/Sneaker");
 
-
 router.get("/", (req, res) => {
   res.render("index");
 });
@@ -13,7 +12,7 @@ router.get("/sneakers/:cat", (req, res) => {
 
 router.post("/sneakers/:cat", (req, res) => {
   console.log("post =============================================>", req.body)
-  if(req.body.category)){  const sneakerCategory = req.body.category;
+  if(req.body.category){  const sneakerCategory = req.body.category;
   sneakerModel
     .find({sneakerCategory})
     .then(sneakers => {
