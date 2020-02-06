@@ -94,10 +94,10 @@ router.post("/signin", (req, res, next) => {
     })
 });
 
-// router.get("/signout", (req, res) => {
-//     req.session.destroy((err) => {
-//       res.redirect("/signin");
-//     });
-//   });
+router.get("/logout", (req, res) => {
+    req.session.destroy((err) => {
+      res.redirect("/");
+    });
+  });
 
 module.exports = router;
