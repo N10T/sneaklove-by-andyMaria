@@ -15,7 +15,7 @@ router.get("/sneakers/:cat", (req, res, next) => {
               res.render("products", { sneakers });
             })
             .catch(dbErr => {
-              console.log(`Oh no... a problem append with the ${categoryClicked}category`);
+              console.log(`Oh no... a problem append with the ${categoryClicked} category`);
             })
         });
 
