@@ -5,8 +5,12 @@ const protectRoute = require("./../middlewares/protectRoute");
 
 // CREATE PRODUCTS
 
-router.get("/products_add", protectRoute,(req, res) => {
+router.get("/prod-add", protectRoute,(req, res) => {
     res.render("products_add");
 });
+
+router.post("/prod-add", protectRoute, (req, res next) => {
+    
+})
 
 module.exports = router;
