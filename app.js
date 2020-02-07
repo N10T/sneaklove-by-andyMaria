@@ -5,6 +5,7 @@ require("./config/mongodb"); // database initial setup
 require("./helpers/helpers-hbs"); // utils for hbs templates
 
 
+
 // base dependencies
 const express = require("express");
 const hbs = require("hbs");
@@ -14,6 +15,7 @@ const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo")(session);
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const flash = require("connect-flash")
 
 
 // initial config
@@ -38,6 +40,9 @@ app.use(
     resave: true
   })
 );
+
+app.use(flash());
+app.use(require("./middlewares/exposeFlashMessage"));
 
 app.locals.site_url = process.env.SITE_URL;
 // used in front end to perform ajax request (var instead of hardcoded)

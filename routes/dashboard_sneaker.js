@@ -29,7 +29,7 @@ router.post("/prod-add", protectRoute, (req, res, next) => {
         id_tags
     })
     .then(dbRes => {
-        // req.flash("success", "product successfully created");
+        req.flash("success", "product successfully created");
         res.redirect("/prod-add");
     })
     .catch(next);
