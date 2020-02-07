@@ -54,5 +54,5 @@ router.get("/product-delete/:id", protectRoute, (req, res, next) => {
       console.log(`Oh no... a problem happend with the database and the delete button`);
     })
 })
-
+    
 module.exports = router;
