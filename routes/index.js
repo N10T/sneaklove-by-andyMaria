@@ -7,40 +7,15 @@ router.get("/", (req, res) => {
 });
 
 
-function renderByCategerory(category) {
-  if(category === "collection"){
-    router.get(`/sneakers/${category}`, (req, res, next) => {
-      sneakerModel
-        .find()
-        .then(sneakers => {
-          res.render("products", { sneakers });
-        })
-        .catch(dbErr => {
-          console.log("Oh no... database error");
-        })
-    })
-  } else {  router.get(`/sneakers/${category}`, (req, res, next) => {
-    sneakerModel
-      .find({"category": `${category}`})
-      .then(sneakers => {
-        res.render("products", { sneakers });
-      })
-      .catch(dbErr => {
-        console.log("Oh no... database error");
-      })
-  });}
-}
-
-categoties.forEach(category => renderByCategerory(category))
-
-router.get("/sneakers/men", (req, res, next) => {
+router.get("/sneakers/:cat", (req, res, next) => {
+  const categoryClicked =  req.params.cat
           sneakerModel
-            .find({category: "men"})
+            .find(categoryClicked === "collection" ? null :{category: categoryClicked})
             .then(sneakers => {
               res.render("products", { sneakers });
             })
             .catch(dbErr => {
-              console.log("Oh no... database error");
+              console.log(`Oh no... a problem append with the ${categoryClicked}category`);
             })
         });
 
