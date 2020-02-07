@@ -112,16 +112,6 @@ router.post("/product-edit/:id", protectRoute, (req, res, next) => {
     category,
     id_tags
   } = req.body;
-  console.log({
-    name,
-    ref,
-    sizes,
-    price,
-    image,
-    description,
-    category,
-    id_tags
-  });
 
   sneakerModel
     .findByIdAndUpdate(req.params.id, {
