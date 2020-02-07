@@ -3,7 +3,7 @@ const router = new express.Router(); // create an app sub-module (router)
 const sneakerModel = require("./../models/Sneaker");
 const protectRoute = require("./../middlewares/protectRoute");
 
-// CREATE PRODUCTS
+// CREATE PRODUCTS & TAGS
 
 router.get("/prod-add", protectRoute,(req, res) => {
     res.render("products_add");
@@ -38,5 +38,25 @@ router.get("/product-delete/:id", protectRoute, (req, res, next) => {
       console.log(`Oh no... a problem happend with the database and the delete button`);
     })
 })
+
+module.exports = router;
+    const { name, ref, sizes, price, image, description, category, id_tags} = req.body;
+    sneakerModel
+    .create({
+        name,
+        ref,
+        sizes,
+        price,
+        image,
+        description,
+        category,
+        id_tags
+    })
+    .then(dbRes => {
+        // req.flash("success", "product successfully created");
+        res.redirect("/prod-add");
+    })
+    .catch(next);
+});
 
 module.exports = router;
