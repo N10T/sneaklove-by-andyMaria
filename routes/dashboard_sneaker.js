@@ -42,6 +42,46 @@ router.get("/prod-manage", protectRoute, (req, res, next) => {
     })
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // DELETE PRODUCT
 router.get("/product-delete/:id", protectRoute, (req, res, next) => {
     sneakerModel
@@ -54,5 +94,90 @@ router.get("/product-delete/:id", protectRoute, (req, res, next) => {
       console.log(`Oh no... a problem happend with the database and the delete button`);
     })
 })
+
+// UPDATE PRODUCT
+router.get("/product-edit/:id", protectRoute, (req, res, next) => {
+    sneakerModel
+    .findById(req.params.id)
+    .then(sneaker => {
+        console.log(sneaker.name, " go update page")
+        res.render("product_edit",{sneaker});
+    })
+    .catch(dbErr => {
+      console.log(`Oh no... a problem happend with the database and the update of ${sneaker.name}`);
+    })
+})
+
+router.post("/product-edit/:id", protectRoute, (req, res, next) => {
+    const {
+        name,
+        ref,
+        sizes,
+        price,
+        image,
+        description,
+        category,
+        id_tags
+    } = req.body  
     
+    sneakerModel
+    .findByIdAndUpdate(req.params.id,{
+        name,
+        ref,
+        sizes,
+        price,
+        image,
+        description,
+        category,
+        id_tags
+    })
+    .then(sneaker => {
+        console.log(sneaker.name, " have been updated")
+        res.redirect("/prod-manage");
+    })
+    .catch(dbErr => {
+      console.log(`Oh no... a problem happend with the database and the update of ${sneaker.name}`);
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = router;
